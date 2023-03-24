@@ -17,10 +17,40 @@
 
     <!-- Custom CSS -->
     <style>
+
     body {
         /* padding-top: 70px; */
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    }
+            background-image: url(/images/medilink-bg.jpg);
+            background-size: cover;
+            background-color: #FFF4E0;
+        }
+        .container {
+            padding: 100px;
+            width: 60%;
+        }
+        .panel {
+            background-color: #FFF4E0;
+            overflow: hidden;
+            border: none;
+            border-radius: 10px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+        .panel-heading {
+            border-radius: 10px 10px 0px 0px;
+            margin-bottom: 20px;
+        }
+
+        .navbar-inverse .navbar-brand {
+            color: lightgrey;
+        }   
+        .navbar-inverse .navbar-nav>li>a {
+            color: lightgrey;
+        }     
+        .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+            color: #fff;
+            background-color: #B46060;
+        }
     .navbar{
         margin-bottom: 70px;
     }
@@ -49,7 +79,7 @@
         border-radius: .25em;
         width: 1.3em;
         height: 1.3em;
-        float: left;
+        /*float: left;*/
         margin-right: .5em;
     }
 
@@ -79,7 +109,7 @@
 <body>
 
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <nav style="background-color: #9e2448; border: none;" class="navbar navbar-inverse navbar-static-top" role="navigation">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -106,8 +136,8 @@
 
         <div class="container">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="text-center">Personal Information</h3>
+                <div style="background-color: #B46060;" class="panel-heading">
+                    <h3 style="color: white;"class="text-center">Personal Information</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -125,7 +155,8 @@
                             
                             <div class="text-center">
                                     <h5>Your records are stored here: http://localhost:8080/ipfs/<span id="recordsHash"></span></h5>
-                                <button type="submit" class="btn btn-info btn-lg" onclick="showRecords(this)">View medical records</button>
+                                <button style="background-color: #B46060; border:none" type="submit" class="btn btn-info btn-lg" onMouseOver="this.style.backgroundColor='#D87A7A'"
+                                onMouseOut="this.style.backgroundColor='#B46060'" onclick="showRecords(this)">View medical records</button>
                                 
                             </div>
                             <pre id="records" style="margin-top: 20px;">
@@ -139,8 +170,8 @@
             </div>
             
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="text-center">Share your Medical Record</h3>
+                <div style="background-color: #B46060;" class="panel-heading">
+                    <h3 style="color: white;" class="text-center">Share your Medical Record</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -161,14 +192,15 @@
                         </div>
                     </form>
                     <div class="text-center">
-                        <button onclick = "giveAccess()" class="btn btn-primary btn-lg">Submit</button>
+                        <button style="background-color: #B46060; border:none" onclick = "giveAccess()" class="btn btn-primary btn-lg" onMouseOver="this.style.backgroundColor='#D87A7A'"
+                        onMouseOut="this.style.backgroundColor='#B46060'">Submit</button>
                     </div>
                 </div>
             </div>
             
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="text-center">Current EMR access holders</h3>
+                <div style="background-color: #B46060;" class="panel-heading">
+                    <h3 style="color: white;" class="text-center">Current EMR access holders</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
