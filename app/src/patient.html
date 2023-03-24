@@ -129,8 +129,20 @@
                                 
                             </div>
                             <pre id="records" style="margin-top: 20px;">
-
                             </pre>
+                            <form id="test-results-form" class="form-horizontal" action="#">
+                                <div class="form-group"> 
+                                    <label for="test-results" class="control-label col-sm-2">Test Scan:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" type="file" id="test-results">
+                                    </div>
+                                    <div >
+                                        <button onclick="uploadTestResult()" class="btn btn-primary btn-sm col-sm-1">Upload</button>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                            
                            
                         </div>
                     </div>
@@ -150,7 +162,7 @@
                     </div>
 
                     
-                    <form class="form-horizontal" action="/action_page.php">
+                    <form class="form-horizontal" action="#">
                         <div class="form-group"> 
                             <label for="permitDoctorList" class="control-label col-sm-2">Doctor:</label>
                             <div class="col-sm-8">
@@ -198,8 +210,14 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="/js/web3.min.js"></script>
 <script src="js/app.js"></script>
+<script src="https://unpkg.com/ipfs-api/dist/index.min.js" crossorigin="anonymous"></script>
+<!-- <script src="https://wzrd.in/standalone/buffer"></script> -->
 
 <script>
+    let reader = new FileReader();
+
+    var ipfs = window.IpfsApi('localhost', '5001')
+    const Buffer = window.IpfsApi().Buffer;
 
     var url_string = window.location.href;
     var url = new URL(url_string);
@@ -211,6 +229,7 @@
     $(window).load(function() {
         connect();
         $("#records").hide();
+        $("#test-results-form").hide();
         $(".alert-info").hide();
         $(".alert-danger").hide();
         key = web3.currentProvider.selectedAddress;
@@ -346,10 +365,10 @@
     });
     function showRecords(element){
         if (toggleRecordsButton%2 == 0){
-
             $.get("http://localhost:8080/ipfs/"+recordHash, function(data){
                 $("#records").html(data);
                 $("#records").show();
+                $("#test-results-form").show();
             })
 
             toggleRecordsButton +=1
@@ -358,6 +377,7 @@
             element.className = "btn btn-info btn-lg";
         } else{
             $("#records").hide();
+            $("#test-results-form").hide();
             toggleRecordsButton -=1;
             element.innerHTML = "View Medical Records";
             element.className = "btn btn-info btn-lg"
@@ -365,7 +385,49 @@
         
     }
 
-    
+    function uploadTestResult() {
+        let fileInput = document.getElementById('test-results');  
+        let file = fileInput.files[0]; 
+        
+        reader.readAsArrayBuffer(file);
+        
+        reader.onloadend = () => {
+            
+            console.log(reader.result);
+            var buffer = Buffer(reader.result);
+        
+            ipfs.files.add(buffer, (error, result) => {
+            if(error){
+                console.log(error)
+            } else {
+                var ipfshash = result[0].hash;
+                var url = 
+                `Test Scan : http://localhost:8080/ipfs/${ipfshash}
+                
+                `;
+                var oldRecords = $("#records").html();
+                var updatedRecords = oldRecords + url;
+                buffer = Buffer(updatedRecords);
+                ipfs.files.add(buffer , (error, result) => {
+                    if(error){
+                        console.log(error)
+                    } else {
+                        var ipfshash = result[0].hash;
+                        contractInstance.set_hash(key, ipfshash, {gas: 1000000}, function(error, result) {
+                            if(error)
+                                console.log(error);
+                            else {
+                                location.reload();
+                                console.log(result);
+                            }
+                        });
+                    }
+                });
+                console.log(result[0].hash);
+            }
+        });
+        }  
+    }
 
     function giveAccess() {
 
@@ -377,8 +439,7 @@
         contractInstance.get_doctor_list({gas: 1000000}, function(error, result){
 
             if(!error) {
-                // console.log(index);
-
+                
                 DoctorList = result;
                 doctorToBeAdded = DoctorList[index-1];
                 contractInstance.permit_access.sendTransaction(doctorToBeAdded, {from: key, gas: 1000000, value: web3.toWei(2, 'ether')}, function(error){
