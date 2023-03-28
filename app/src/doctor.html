@@ -17,7 +17,26 @@
     <!-- <script src="js/bundle.js"></script> -->
     <!-- Custom CSS -->
     <style>
-
+        body {
+            background-image: url(/images/medilink-bg.jpg);
+            background-size: cover;
+            background-color: #FFF4E0;
+        }
+        .container {
+            padding: 100px;
+            width: 60%;
+        }
+        .panel {
+            background-color: #FFF4E0;
+            overflow: hidden;
+            border: none;
+            border-radius: 10px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+        .panel-heading {
+            border-radius: 10px 10px 0px 0px;
+            margin-bottom: 20px;
+        }
     .panel{
         margin-bottom: 60px;
     }
@@ -42,6 +61,16 @@
         color: #23527c;
         background-color: inherit; 
     }
+    .navbar-inverse .navbar-brand {
+            color: lightgrey;
+        }   
+        .navbar-inverse .navbar-nav>li>a {
+            color: lightgrey;
+        }   
+        .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+          color: #fff;
+          background-color: #B46060;
+      } 
     </style>
 
 
@@ -50,7 +79,7 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <nav style="background-color: #9e2448" class="navbar navbar-inverse navbar-static-top" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -77,8 +106,8 @@
 
     <div class="container">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="text-center">Personal Information</h3>
+            <div style="background-color: #B46060;" class="panel-heading">
+                <h3 style="color: white;" class="text-center">Personal Information</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -101,8 +130,8 @@
 
         
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="text-center">Accessible EMRs</h3>
+            <div style="background-color: #B46060;" class="panel-heading">
+                <h3 style="color: white;" class="text-center">Accessible EMRs</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
