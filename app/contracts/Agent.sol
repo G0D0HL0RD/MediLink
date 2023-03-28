@@ -160,8 +160,9 @@ contract Agent {
         return patientInfo[paddr].record;
     }
 
-    function set_hash(address paddr, string memory _hash) internal {
+    function set_hash(address paddr, string memory _hash) public payable returns(string memory) {
         patientInfo[paddr].record = _hash;
+        return "Hash Updated";
     }
 
 }
