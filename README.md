@@ -1,4 +1,4 @@
-# SwasthyaChain : Health Records Management Using Blockchain
+# MediLink : Patient Database Managment Systme Using Blockchain
 
 
 ## Introduction
